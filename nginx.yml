@@ -1,0 +1,11 @@
+---
+- name: practice
+  hosts: dev
+  user: ansible
+  become: yes
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+    - name: installing nginx
+      command: apt install nginx -y
