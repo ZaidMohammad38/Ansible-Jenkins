@@ -1,31 +1,47 @@
 pipeline {
     agent any
+
     environment {
         ANSIBLE_HOST_KEY_CHECKING = 'False'
     }
+
     stages {
-        stage('Pull from Git Repo') {
+
+        stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/ZaidMohammad38/Ansible-Jenkins.git'
             }
         }
 
+        stage('Verify Files') {
+            steps {
+                sh 'ls -l'
+            }
+        }
+
         stage('Validate Ansible Playbook') {
             steps {
-                sh """
-                ansible-playbook -i inventory nginx.yml -vvv
-                """
+                sh 'ansible-playbook -i inventory nginx.yml --syntax-check'
+            }
+        }
+
+        stage('Run Ansible Playbook') {
+            steps {
+                sh 'ansible-playbook -i inventory nginx.yml'
             }
         }
 
     }
 
     post {
+
         success {
-            echo 'Ansible playbook executed successfully!'
+            echo 'Deployment completed successfully!'
         }
+
         failure {
-            echo 'Pipeline failed. Check logs above.'
+            echo 'Pipeline failed. Check the logs.'
         }
+
     }
 }
