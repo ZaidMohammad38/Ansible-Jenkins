@@ -6,25 +6,18 @@ pipeline {
     stages {
         stage('Pull from Git Repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/rohinicc/jenkins_ansible.git'
+                git branch: 'main', url: 'https://github.com/ZaidMohammad38/Ansible-Jenkins.git'
             }
         }
 
         stage('Validate Ansible Playbook') {
             steps {
                 sh """
-                sudo -u ansible ansible-playbook -i inventory playbook.yml --check
+                sudo -u ansible ansible-playbook -i inventory playbook.yml -vvv
                 """
             }
         }
 
-        stage('Run Ansible Playbook') {
-            steps {
-                sh """
-                sudo -u ansible ansible-playbook -i inventory playbook.yml -v
-                """
-            }
-        }
     }
 
     post {
