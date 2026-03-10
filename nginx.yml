@@ -7,4 +7,4 @@
   gather_facts: no
   tasks:
     - name: installing nginx
-      command: apt remove nginx -y
+      command: apt install nginx -y
