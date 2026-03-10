@@ -27,9 +27,7 @@ pipeline {
 
         stage('Run Ansible Playbook') {
             steps {
-                sh """
-                sudo -u ansible ansible-playbook -i inventory nginx.yml -v
-                """
+                sh 'ansible-playbook -i inventory nginx.yml'
             }
         }
 
