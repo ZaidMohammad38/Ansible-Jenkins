@@ -13,7 +13,7 @@ pipeline {
         stage('Validate Ansible Playbook') {
             steps {
                 sh """
-                ansible-playbook -i inventory playbook.yml -vvv
+                ansible-playbook -i inventory nginx.yml -vvv
                 """
             }
         }
